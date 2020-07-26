@@ -5,13 +5,13 @@ public class UserAnimalList {
     public boolean checkAnimalsInCollection(ArrayList userListAfterGreeding) {
         if (userListAfterGreeding.contains(Animal.RABBIT)) {
 
-        } else if (userListAfterGreeding.contains(Animal.SHEEP)) {
+        }  if (userListAfterGreeding.contains(Animal.SHEEP)) {
 
-        } else if (userListAfterGreeding.contains(Animal.PIG)) {
+        }  if (userListAfterGreeding.contains(Animal.PIG)) {
 
-        } else if (userListAfterGreeding.contains(Animal.COW)) {
+        }  if (userListAfterGreeding.contains(Animal.COW)) {
 
-        } else if (userListAfterGreeding.contains(Animal.HORSE)) {
+        }  if (userListAfterGreeding.contains(Animal.HORSE)) {
             return true;
         } else {
         }

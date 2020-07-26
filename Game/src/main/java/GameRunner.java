@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -35,6 +34,7 @@ public class GameRunner extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
@@ -45,6 +45,12 @@ public class GameRunner extends Application {
         orangeDice.setTextFill(Color.web("orange"));
         blueDice.setFont(new Font("Arial", 50));
         blueDice.setTextFill(Color.web("blue"));
+        orangeDiceComputer.setFont(new Font("Arial", 50));
+        orangeDiceComputer.setTextFill(Color.web("orange"));
+        blueDiceComputer.setFont(new Font("Arial", 50));
+        blueDiceComputer.setTextFill(Color.web("blue"));
+        informWinner.setFont(new Font("Arial", 100));
+        informWinner.setTextFill(Color.web("red"));
 
 
         GridPane grid = new GridPane();
@@ -65,79 +71,81 @@ public class GameRunner extends Application {
         AtomicBoolean getWinnerComputer = new AtomicBoolean(false);
 
         boolean moveControler = true;
-            Button throwDice = new Button();
-            throwDice.setText("THROW DICE");
-            while (moveControler == true) {
-                moveControler = false;
-                throwDice.setOnAction((e) -> {
-                    Dice dice = new Dice();
-                    Animal orange = dice.orangeDice();
-                    Animal blue = dice.blueDice();
-                    orangeDice.setText(String.valueOf(orange));
-                    blueDice.setText(String.valueOf(blue));
-                     userListAfterGreeding = userAnimalList.greedingUser(userList, orange, blue);
-                });
+        Button throwDice = new Button();
+        throwDice.setText("THROW DICE");
 
+        while (moveControler == true) {
+            moveControler = false;
+            throwDice.setOnAction((e) -> {
+                Dice dice = new Dice();
+                Animal orange = dice.orangeDice();
+                Animal blue = dice.blueDice();
+                orangeDice.setText(String.valueOf(orange));
+                blueDice.setText(String.valueOf(blue));
+                userListAfterGreeding = userAnimalList.greedingUser(userList, orange, blue);
+                boolean userWinner = userAnimalList.checkAnimalsInCollection(userListAfterGreeding);
+
+            if (userWinner == true) {
+                System.out.println("User WON!!!");
+                throwDice.setText("GAME OVER");
+                informWinner.setText("YOU WON");
             }
 
-            Button throwComputer = new Button();
-            throwComputer.setText("FINISH YOUR MOVE");
-            while (moveControler == false) {
-                moveControler = true;
-                throwComputer.setOnAction((e) -> {
-                    Dice dice = new Dice();
-                    Animal orange = dice.orangeDice();
-                    Animal blue = dice.blueDice();
-                    orangeDiceComputer.setText(String.valueOf(orange));
-                    blueDiceComputer.setText(String.valueOf(blue));
-                    ArrayList computerListAfterGreeding = computerAnimalLIst.greedingComputer(computerList, orange, blue);
+                System.out.println("User after greeding has " + userListAfterGreeding.size() + " animals");
+                System.out.println("------------------------------------------------------------------------");
 
-                    if (Collections.frequency(computerListAfterGreeding, Animal.RABBIT) > 7) {
-                        computerAnimalLIst.exRabbitToScheep(computerListAfterGreeding);
-                        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-                    }
-                    if (Collections.frequency(computerListAfterGreeding, Animal.SHEEP) > 4) {
-                        computerAnimalLIst.exSheepToPig(computerListAfterGreeding);
-                        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-                    }
-                    if (Collections.frequency(computerListAfterGreeding, Animal.PIG) > 2) {
-                        computerAnimalLIst.exPigToCow(computerListAfterGreeding);
-                        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-                    }
-                    if (Collections.frequency(computerListAfterGreeding, Animal.COW) > 2) {
-                        computerAnimalLIst.exCowToHorse(computerListAfterGreeding);
-                        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-                    }
+            });
 
-                    getWinnerComputer.set(computerAnimalLIst.checkAnimalsInCollection(computerListAfterGreeding));
+        }
 
-                    System.out.println("Computer after greeding has " + computerListAfterGreeding.size()+ " animals");
-                    System.out.println("------------------------------------------------------------------------");
+        Button throwComputer = new Button();
+        throwComputer.setText("FINISH YOUR MOVE");
+        while (moveControler == false) {
+            moveControler = true;
+            throwComputer.setOnAction((e) -> {
+                Dice dice = new Dice();
+                Animal orange = dice.orangeDice();
+                Animal blue = dice.blueDice();
+                orangeDiceComputer.setText(String.valueOf(orange));
+                blueDiceComputer.setText(String.valueOf(blue));
+                ArrayList computerListAfterGreeding = computerAnimalLIst.greedingComputer(computerList, orange, blue);
 
-                    if (getWinnerComputer.get() == true) {
-                        System.out.println("Computer WON!!!");
-                        throwComputer.setText("GAME OVER");
+                if (Collections.frequency(computerListAfterGreeding, Animal.RABBIT) > 7) {
+                    computerAnimalLIst.exRabbitToScheep(computerListAfterGreeding);
+                    System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                }
+                if (Collections.frequency(computerListAfterGreeding, Animal.SHEEP) > 4) {
+                    computerAnimalLIst.exSheepToPig(computerListAfterGreeding);
+                    System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                }
+                if (Collections.frequency(computerListAfterGreeding, Animal.PIG) > 2) {
+                    computerAnimalLIst.exPigToCow(computerListAfterGreeding);
+                    System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                }
+                if (Collections.frequency(computerListAfterGreeding, Animal.COW) > 2) {
+                    computerAnimalLIst.exCowToHorse(computerListAfterGreeding);
+                    System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                }
 
-                        informWinner.setText("Computer WON!!!");
+                getWinnerComputer.set(computerAnimalLIst.checkAnimalsInCollection(computerListAfterGreeding));
 
+                if (getWinnerComputer.get() == true) {
+                    System.out.println("Computer WON!!!");
+                    informWinner.setText("Computer WON!!!");
 
+                }
+                System.out.println("Computer after greeding has " + computerListAfterGreeding.size() + " animals");
+                System.out.println("------------------------------------------------------------------------");
 
-                    } else if (getWinnerUser == true) {
-                        System.out.println("User WON!!!");
-                        throwDice.setText("GAME OVER");
-                        informWinner.setText("YOU WON");
+            });
+        }
 
-
-                    }
-
-                });
-            }
 
         Button exchangePig = new Button();
         exchangePig.setText("PIG");
         exchangePig.setOnAction((e) -> {
             userListAfterGreeding.add(Animal.PIG);
-            userListAfterGreeding.add(Animal.RABBIT);
+            userListAfterGreeding.add(Animal.SHEEP);
             userListAfterGreeding.add(Animal.HORSE);
             userListAfterGreeding.add(Animal.COW);
             userListAfterGreeding.add(Animal.RABBIT);
@@ -157,14 +165,78 @@ public class GameRunner extends Application {
 
         });
 
-        grid.add(throwDice, 1 ,1 );
-        grid.add(throwComputer, 12,1);
-        grid.add(orangeDice, 2 ,1);
-        grid.add(blueDice, 3, 1);
-        grid.add(orangeDiceComputer, 4 ,1);
-        grid.add(blueDiceComputer, 6, 1);
-        grid.add(informWinner,6,5);
-        grid.add(exchangePig, 1 , 8);
+        Button exchangeCow = new Button();
+        exchangeCow.setText("COW");
+        exchangeCow.setOnAction((e) -> {
+
+        });
+
+        grid.getColumnConstraints().
+
+                add(new ColumnConstraints(80)); // column 0 is 100 wide
+        grid.getColumnConstraints().
+
+                add(new ColumnConstraints(80)); // column 0 is 100 wide
+        grid.getColumnConstraints().
+
+                add(new ColumnConstraints(80)); // column 0 is 100 wide
+        grid.getColumnConstraints().
+
+                add(new ColumnConstraints(80)); // column 0 is 100 wide
+        grid.getColumnConstraints().
+
+                add(new ColumnConstraints(80)); // column 0 is 100 wide
+        grid.getColumnConstraints().
+
+                add(new ColumnConstraints(80)); // column 0 is 100 wide
+        grid.getColumnConstraints().
+
+                add(new ColumnConstraints(80)); // column 0 is 100 wide
+        grid.getColumnConstraints().
+
+                add(new ColumnConstraints(80)); // column 0 is 100 wide
+        grid.getColumnConstraints().
+
+                add(new ColumnConstraints(80)); // column 0 is 100 wide
+        grid.getColumnConstraints().
+
+                add(new ColumnConstraints(80)); // column 0 is 100 wide
+        grid.getColumnConstraints().
+
+                add(new ColumnConstraints(80)); // column 0 is 100 wide
+        grid.getColumnConstraints().
+
+                add(new ColumnConstraints(80)); // column 0 is 100 wide
+        grid.getColumnConstraints().
+
+
+                add(new ColumnConstraints(80)); // column 0 is 100 wide
+        grid.getColumnConstraints().
+
+                add(new ColumnConstraints(80)); // column 0 is 100 wide
+        grid.getColumnConstraints().
+
+                add(new ColumnConstraints(80)); // column 0 is 100 wide
+        grid.getRowConstraints().
+
+                add(new RowConstraints(10)); // column 0 is 100 wide
+        grid.getRowConstraints().
+
+                add(new RowConstraints(10)); // column 0
+
+
+
+        grid.add(throwDice, 1, 1,3,3);
+        grid.add(throwComputer, 20, 1);
+        grid.add(orangeDice, 2, 1,10,2);
+        grid.add(blueDice, 5, 1,5,2);
+        grid.add(orangeDiceComputer, 15, 1,5,2);
+        grid.add(blueDiceComputer, 10, 1,5,2);
+        grid.add(informWinner, 6, 5);
+        grid.add(exchangePig, 9, 5);
+        grid.add(exchangeSheep,8,5);
+        grid.add(exchangeRabbit, 7,5);
+        grid.add(exchangeCow, 6,5);
 
 
         Scene scene = new Scene(grid, 1600, 900, Color.YELLOW);
