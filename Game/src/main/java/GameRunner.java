@@ -19,6 +19,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static javafx.application.Application.launch;
 
 public class GameRunner extends Application {
+
+    ArrayList userListAfterGreeding;
+
     private Image imageback = new Image("file:src/main/resources/Plansza do gry (2).png");
 
     private FlowPane animals = new FlowPane(Orientation.HORIZONTAL);
@@ -72,7 +75,7 @@ public class GameRunner extends Application {
                     Animal blue = dice.blueDice();
                     orangeDice.setText(String.valueOf(orange));
                     blueDice.setText(String.valueOf(blue));
-                    ArrayList userListAfterGreeding = userAnimalList.greedingUser(userList, orange, blue);
+                     userListAfterGreeding = userAnimalList.greedingUser(userList, orange, blue);
                 });
 
             }
@@ -133,6 +136,12 @@ public class GameRunner extends Application {
         Button exchangePig = new Button();
         exchangePig.setText("PIG");
         exchangePig.setOnAction((e) -> {
+            userListAfterGreeding.add(Animal.PIG);
+            userListAfterGreeding.add(Animal.RABBIT);
+            userListAfterGreeding.add(Animal.HORSE);
+            userListAfterGreeding.add(Animal.COW);
+            userListAfterGreeding.add(Animal.RABBIT);
+            System.out.println(userListAfterGreeding.size());
 
         });
 
@@ -155,6 +164,7 @@ public class GameRunner extends Application {
         grid.add(orangeDiceComputer, 4 ,1);
         grid.add(blueDiceComputer, 6, 1);
         grid.add(informWinner,6,5);
+        grid.add(exchangePig, 1 , 8);
 
 
         Scene scene = new Scene(grid, 1600, 900, Color.YELLOW);
