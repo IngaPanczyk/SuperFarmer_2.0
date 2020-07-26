@@ -1,0 +1,3 @@
+rootProject.name = 'SuperFarmer2.0'
+include 'Game'
+
