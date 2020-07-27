@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static javafx.application.Application.launch;
 
-public class GameRunner extends Application {
+public class GameRunner extends Application{
 
     ArrayList userListAfterGreeding;
 
@@ -29,6 +29,12 @@ public class GameRunner extends Application {
     private Label blueDiceComputer = new Label();
     private Label orangeDiceComputer = new Label();
     private Label informWinner = new Label();
+    private Label qRabbits = new Label();
+    private Label qSheeps = new Label();
+    private Label qPigs = new Label();
+    private Label qCows = new Label();
+    private Label qHorses = new Label();
+
 
 
     public static void main(String[] args) {
@@ -41,16 +47,27 @@ public class GameRunner extends Application {
         BackgroundImage backgroundImage = new BackgroundImage(imageback, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
 
-        orangeDice.setFont(new Font("Arial", 50));
+        orangeDice.setFont(new Font("Arial", 40));
         orangeDice.setTextFill(Color.web("orange"));
-        blueDice.setFont(new Font("Arial", 50));
+        blueDice.setFont(new Font("Arial", 40));
         blueDice.setTextFill(Color.web("blue"));
-        orangeDiceComputer.setFont(new Font("Arial", 50));
+        orangeDiceComputer.setFont(new Font("Arial", 40));
         orangeDiceComputer.setTextFill(Color.web("orange"));
-        blueDiceComputer.setFont(new Font("Arial", 50));
+        blueDiceComputer.setFont(new Font("Arial", 40));
         blueDiceComputer.setTextFill(Color.web("blue"));
-        informWinner.setFont(new Font("Arial", 100));
+        informWinner.setFont(new Font("Arial", 40));
         informWinner.setTextFill(Color.web("red"));
+        qRabbits.setFont(new Font("Arial", 30));
+        qRabbits.setTextFill(Color.web("green"));
+        qSheeps.setFont(new Font("Arial", 30));
+        qSheeps.setTextFill(Color.web("green"));
+        qPigs.setFont(new Font("Arial", 30));
+        qPigs.setTextFill(Color.web("green"));
+        qCows.setFont(new Font("Arial", 30));
+        qCows.setTextFill(Color.web("green"));
+        qHorses.setFont(new Font("Arial", 30));
+        qHorses.setTextFill(Color.web("green"));
+
 
 
         GridPane grid = new GridPane();
@@ -71,6 +88,7 @@ public class GameRunner extends Application {
         AtomicBoolean getWinnerComputer = new AtomicBoolean(false);
 
         boolean moveControler = true;
+        //PRZYCISKI ---------------------------------------------------------------------------------------------------
         Button throwDice = new Button();
         throwDice.setText("THROW DICE");
 
@@ -93,6 +111,12 @@ public class GameRunner extends Application {
 
                 System.out.println("User after greeding has " + userListAfterGreeding.size() + " animals");
                 System.out.println("------------------------------------------------------------------------");
+                qRabbits.setText("RABBITS: "+ String.valueOf(Collections.frequency(userListAfterGreeding, Animal.RABBIT)));
+                qSheeps.setText("SHEEP: "+ String.valueOf(Collections.frequency(userListAfterGreeding, Animal.SHEEP)));
+                qPigs.setText("PIGS: "+ String.valueOf(Collections.frequency(userListAfterGreeding, Animal.PIG)));
+                qCows.setText("COWS: "+ String.valueOf(Collections.frequency(userListAfterGreeding, Animal.COW)));
+                qHorses.setText("HORSES: "+ String.valueOf(Collections.frequency(userListAfterGreeding, Animal.HORSE)));
+
 
             });
 
@@ -140,64 +164,85 @@ public class GameRunner extends Application {
             });
         }
 
-
-        Button exchangePig = new Button();
-        exchangePig.setText("PIG");
-        exchangePig.setOnAction((e) -> {
-            userListAfterGreeding.add(Animal.PIG);
-            userListAfterGreeding.add(Animal.SHEEP);
-            userListAfterGreeding.add(Animal.HORSE);
-            userListAfterGreeding.add(Animal.COW);
-            userListAfterGreeding.add(Animal.RABBIT);
-            System.out.println(userListAfterGreeding.size());
-
-        });
-
         Button exchangeRabbit = new Button();
-        exchangeRabbit.setText("RABBIT");
+        exchangeRabbit.setText("6 RABBIT = 1 SHEEP");
         exchangeRabbit.setOnAction((e) -> {
-
+            if (Collections.frequency(userListAfterGreeding, Animal.RABBIT) > 7){
+                userListAfterGreeding.add(Animal.SHEEP);
+                userListAfterGreeding.remove(Animal.RABBIT);
+                userListAfterGreeding.remove(Animal.RABBIT);
+                userListAfterGreeding.remove(Animal.RABBIT);
+                userListAfterGreeding.remove(Animal.RABBIT);
+                userListAfterGreeding.remove(Animal.RABBIT);
+                userListAfterGreeding.remove(Animal.RABBIT);
+                System.out.println("Exchanged 6 RABBITS TO 1 SHEEP");
+            }
         });
 
         Button exchangeSheep = new Button();
-        exchangeSheep.setText("SHEEP");
+        exchangeSheep.setText("3 SHEEP = 1 PIG");
         exchangeSheep.setOnAction((e) -> {
+            if (Collections.frequency(userListAfterGreeding, Animal.SHEEP) > 4){
+                userListAfterGreeding.add(Animal.PIG);
+                userListAfterGreeding.remove(Animal.SHEEP);
+                userListAfterGreeding.remove(Animal.SHEEP);
+                userListAfterGreeding.remove(Animal.SHEEP);
 
+                System.out.println("Exchanged 3 SHEEP TO 1 PIG");
+            }
         });
 
         Button exchangeCow = new Button();
-        exchangeCow.setText("COW");
+        exchangeCow.setText("2 PIG = 1 COW");
         exchangeCow.setOnAction((e) -> {
+            if (Collections.frequency(userListAfterGreeding, Animal.PIG) > 3) {
+                userListAfterGreeding.add(Animal.COW);
+                userListAfterGreeding.remove(Animal.PIG);
+                userListAfterGreeding.remove(Animal.PIG);
 
+                System.out.println("Exchanged 2 PIG TO 1 COW");
+            }
+        });
+
+        Button exchangeHorse = new Button();
+        exchangeHorse.setText("2 COW = 1 HORSE");
+        exchangeHorse.setOnAction((e) -> {
+            if (Collections.frequency(userListAfterGreeding, Animal.COW) > 3) {
+                userListAfterGreeding.add(Animal.HORSE);
+                userListAfterGreeding.remove(Animal.COW);
+                userListAfterGreeding.remove(Animal.COW);
+
+                System.out.println("Exchanged 2 COW TO 1 HORSE");
+            }
         });
 
         grid.getColumnConstraints().
 
-                add(new ColumnConstraints(80)); // column 0 is 100 wide
+                add(new ColumnConstraints(80)); // 0
         grid.getColumnConstraints().
 
-                add(new ColumnConstraints(80)); // column 0 is 100 wide
+                add(new ColumnConstraints(200)); // 1
         grid.getColumnConstraints().
 
-                add(new ColumnConstraints(80)); // column 0 is 100 wide
+                add(new ColumnConstraints(160)); //2
         grid.getColumnConstraints().
 
-                add(new ColumnConstraints(80)); // column 0 is 100 wide
+                add(new ColumnConstraints(160)); // 3
         grid.getColumnConstraints().
 
-                add(new ColumnConstraints(80)); // column 0 is 100 wide
+                add(new ColumnConstraints(160)); // 4
         grid.getColumnConstraints().
 
-                add(new ColumnConstraints(80)); // column 0 is 100 wide
+                add(new ColumnConstraints(160)); // 5
         grid.getColumnConstraints().
 
-                add(new ColumnConstraints(80)); // column 0 is 100 wide
+                add(new ColumnConstraints(200)); // 6
         grid.getColumnConstraints().
 
-                add(new ColumnConstraints(80)); // column 0 is 100 wide
+                add(new ColumnConstraints(160)); // 7
         grid.getColumnConstraints().
 
-                add(new ColumnConstraints(80)); // column 0 is 100 wide
+                add(new ColumnConstraints(160)); // 8
         grid.getColumnConstraints().
 
                 add(new ColumnConstraints(80)); // column 0 is 100 wide
@@ -219,24 +264,48 @@ public class GameRunner extends Application {
                 add(new ColumnConstraints(80)); // column 0 is 100 wide
         grid.getRowConstraints().
 
-                add(new RowConstraints(10)); // column 0 is 100 wide
+                add(new RowConstraints(100)); // column 0 is 100 wide
         grid.getRowConstraints().
 
-                add(new RowConstraints(10)); // column 0
+                add(new RowConstraints(100)); // column 0
+        grid.getRowConstraints().
+
+                add(new RowConstraints(50)); // column 0
+        grid.getRowConstraints().
+
+                add(new RowConstraints(50)); // column 0
+        grid.getRowConstraints().
+
+                add(new RowConstraints(50)); // column 0
+        grid.getRowConstraints().
+
+                add(new RowConstraints(52)); // column 0
+        grid.getRowConstraints().
+
+                add(new RowConstraints(50)); // column 0
+        grid.getRowConstraints().
+
+                add(new RowConstraints(50)); // column 0
 
 
 
-        grid.add(throwDice, 1, 1,3,3);
-        grid.add(throwComputer, 20, 1);
-        grid.add(orangeDice, 2, 1,10,2);
-        grid.add(blueDice, 5, 1,5,2);
-        grid.add(orangeDiceComputer, 15, 1,5,2);
-        grid.add(blueDiceComputer, 10, 1,5,2);
+        grid.add(throwDice, 1, 1);
+        grid.add(throwComputer, 9, 1);
+        grid.add(orangeDice, 2, 1);
+        grid.add(blueDice, 3, 1);
+        grid.add(orangeDiceComputer, 6, 1);
+        grid.add(blueDiceComputer, 7, 1);
         grid.add(informWinner, 6, 5);
-        grid.add(exchangePig, 9, 5);
-        grid.add(exchangeSheep,8,5);
-        grid.add(exchangeRabbit, 7,5);
-        grid.add(exchangeCow, 6,5);
+        grid.add(exchangeRabbit, 5,20);
+        grid.add(exchangeSheep,5,21);
+        grid.add(exchangeCow, 5,22);
+        grid.add(exchangeHorse, 5,23);
+
+        grid.add(qRabbits,1,5);
+        grid.add(qSheeps,1,6);
+        grid.add(qPigs,1,7);
+        grid.add(qCows,1,8);
+        grid.add(qHorses,1,9);
 
 
         Scene scene = new Scene(grid, 1600, 900, Color.YELLOW);
