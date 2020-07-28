@@ -33,16 +33,4 @@ public class Dice {
         }
     }
 
-    public  static Animal throwOrangeDice() {
-        Dice orangeDice = new Dice();
-        Animal orange = orangeDice.orangeDice();
-        return  orange;
-    }
-
-    public  static Animal throwBlueDice() {
-        Dice blueDice = new Dice();
-        Animal blue = blueDice.orangeDice();
-        return  blue;
-    }
-
 }
