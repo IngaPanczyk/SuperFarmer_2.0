@@ -20,8 +20,11 @@ import static javafx.application.Application.launch;
 public class GameRunner extends Application{
 
     ArrayList userListAfterGreeding;
+    boolean moveControler;
 
     private Image imageback = new Image("file:src/main/resources/Plansza do gry (2).png");
+    //Jak zmienić tło?
+    private Image imageback1 = new Image("file:src/main/resources/Plansza do gry (1).png");
 
     private FlowPane animals = new FlowPane(Orientation.HORIZONTAL);
     private Label blueDice = new Label();
@@ -34,6 +37,11 @@ public class GameRunner extends Application{
     private Label qPigs = new Label();
     private Label qCows = new Label();
     private Label qHorses = new Label();
+    private Label qRabbitsCom = new Label();
+    private Label qSheepsCom = new Label();
+    private Label qPigsCom = new Label();
+    private Label qCowsCom = new Label();
+    private Label qHorsesCOm = new Label();
 
 
 
@@ -45,6 +53,7 @@ public class GameRunner extends Application{
     public void start(Stage primaryStage) throws Exception {
         BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(imageback, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+        BackgroundImage backgroundImage1 = new BackgroundImage(imageback1, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
 
         orangeDice.setFont(new Font("Arial", 40));
@@ -67,6 +76,16 @@ public class GameRunner extends Application{
         qCows.setTextFill(Color.web("green"));
         qHorses.setFont(new Font("Arial", 30));
         qHorses.setTextFill(Color.web("green"));
+        qRabbitsCom.setFont(new Font("Arial", 30));
+        qRabbitsCom.setTextFill(Color.web("green"));
+        qSheepsCom.setFont(new Font("Arial", 30));
+        qSheepsCom.setTextFill(Color.web("green"));
+        qPigsCom.setFont(new Font("Arial", 30));
+        qPigsCom.setTextFill(Color.web("green"));
+        qCowsCom.setFont(new Font("Arial", 30));
+        qCowsCom.setTextFill(Color.web("green"));
+        qHorsesCOm.setFont(new Font("Arial", 30));
+        qHorsesCOm.setTextFill(Color.web("green"));
 
 
 
@@ -84,17 +103,18 @@ public class GameRunner extends Application{
 
         ArrayList userList = userAnimalList.getlist();
         ArrayList computerList = computerAnimalLIst.getList();
-        boolean getWinnerUser = false;
+
         AtomicBoolean getWinnerComputer = new AtomicBoolean(false);
 
-        boolean moveControler = true;
         //PRZYCISKI ---------------------------------------------------------------------------------------------------
+
         Button throwDice = new Button();
         throwDice.setText("THROW DICE");
-
+        moveControler = true;
         while (moveControler == true) {
             moveControler = false;
             throwDice.setOnAction((e) -> {
+                Background background1 = new Background(backgroundImage);
                 Dice dice = new Dice();
                 Animal orange = dice.orangeDice();
                 Animal blue = dice.blueDice();
@@ -116,16 +136,19 @@ public class GameRunner extends Application{
                 qPigs.setText("PIGS: "+ String.valueOf(Collections.frequency(userListAfterGreeding, Animal.PIG)));
                 qCows.setText("COWS: "+ String.valueOf(Collections.frequency(userListAfterGreeding, Animal.COW)));
                 qHorses.setText("HORSES: "+ String.valueOf(Collections.frequency(userListAfterGreeding, Animal.HORSE)));
-
+                System.out.println("Movecontrolermmm:" + moveControler);
 
             });
 
         }
+        System.out.println("Movecontrolermmm:" + moveControler);
 
         Button throwComputer = new Button();
         throwComputer.setText("FINISH YOUR MOVE");
         while (moveControler == false) {
+            System.out.println("Movecontroler:" + moveControler);
             moveControler = true;
+            System.out.println("Movecontroler:" + moveControler);
             throwComputer.setOnAction((e) -> {
                 Dice dice = new Dice();
                 Animal orange = dice.orangeDice();
@@ -159,6 +182,12 @@ public class GameRunner extends Application{
 
                 }
                 System.out.println("Computer after greeding has " + computerListAfterGreeding.size() + " animals");
+
+                qRabbitsCom.setText("RABBITS: "+ String.valueOf(Collections.frequency(computerListAfterGreeding, Animal.RABBIT)));
+                qSheepsCom.setText("SHEEP: "+ String.valueOf(Collections.frequency(computerListAfterGreeding, Animal.SHEEP)));
+                qPigsCom.setText("PIGS: "+ String.valueOf(Collections.frequency(computerListAfterGreeding, Animal.PIG)));
+                qCowsCom.setText("COWS: "+ String.valueOf(Collections.frequency(computerListAfterGreeding, Animal.COW)));
+                qHorsesCOm.setText("HORSES: "+ String.valueOf(Collections.frequency(computerListAfterGreeding, Animal.HORSE)));
                 System.out.println("------------------------------------------------------------------------");
 
             });
@@ -242,59 +271,59 @@ public class GameRunner extends Application{
                 add(new ColumnConstraints(160)); // 7
         grid.getColumnConstraints().
 
-                add(new ColumnConstraints(160)); // 8
+                add(new ColumnConstraints(200)); // 8
         grid.getColumnConstraints().
 
-                add(new ColumnConstraints(80)); // column 0 is 100 wide
+                add(new ColumnConstraints(80)); // 9
         grid.getColumnConstraints().
 
-                add(new ColumnConstraints(80)); // column 0 is 100 wide
+                add(new ColumnConstraints(80)); // 10
         grid.getColumnConstraints().
 
-                add(new ColumnConstraints(80)); // column 0 is 100 wide
+                add(new ColumnConstraints(80)); // 11
         grid.getColumnConstraints().
 
 
-                add(new ColumnConstraints(80)); // column 0 is 100 wide
+                add(new ColumnConstraints(80)); // 12
         grid.getColumnConstraints().
 
-                add(new ColumnConstraints(80)); // column 0 is 100 wide
+                add(new ColumnConstraints(80)); // 13
         grid.getColumnConstraints().
 
-                add(new ColumnConstraints(80)); // column 0 is 100 wide
+                add(new ColumnConstraints(80)); // 14
         grid.getRowConstraints().
 
-                add(new RowConstraints(100)); // column 0 is 100 wide
+                add(new RowConstraints(100)); // 1
         grid.getRowConstraints().
 
-                add(new RowConstraints(100)); // column 0
+                add(new RowConstraints(100)); //2
         grid.getRowConstraints().
 
-                add(new RowConstraints(50)); // column 0
+                add(new RowConstraints(50)); // 3
         grid.getRowConstraints().
 
-                add(new RowConstraints(50)); // column 0
+                add(new RowConstraints(50)); //4
         grid.getRowConstraints().
 
-                add(new RowConstraints(50)); // column 0
+                add(new RowConstraints(50)); // 4
         grid.getRowConstraints().
 
-                add(new RowConstraints(52)); // column 0
+                add(new RowConstraints(52)); // 5
         grid.getRowConstraints().
 
-                add(new RowConstraints(50)); // column 0
+                add(new RowConstraints(50)); // 6
         grid.getRowConstraints().
 
-                add(new RowConstraints(50)); // column 0
+                add(new RowConstraints(50)); // 7
 
 
 
         grid.add(throwDice, 1, 1);
-        grid.add(throwComputer, 9, 1);
+        grid.add(throwComputer, 8, 1);
         grid.add(orangeDice, 2, 1);
         grid.add(blueDice, 3, 1);
-        grid.add(orangeDiceComputer, 6, 1);
-        grid.add(blueDiceComputer, 7, 1);
+        grid.add(orangeDiceComputer, 5, 1);
+        grid.add(blueDiceComputer, 6, 1);
         grid.add(informWinner, 6, 5);
         grid.add(exchangeRabbit, 5,20);
         grid.add(exchangeSheep,5,21);
@@ -306,6 +335,12 @@ public class GameRunner extends Application{
         grid.add(qPigs,1,7);
         grid.add(qCows,1,8);
         grid.add(qHorses,1,9);
+        grid.add(qRabbitsCom,8,5);
+        grid.add(qSheepsCom,8,6);
+        grid.add(qPigsCom,8,7);
+        grid.add(qCowsCom,8,8);
+        grid.add(qHorsesCOm,8,9);
+
 
 
         Scene scene = new Scene(grid, 1600, 900, Color.YELLOW);
