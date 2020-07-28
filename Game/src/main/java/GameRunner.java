@@ -17,15 +17,17 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static javafx.application.Application.launch;
 
+
+//Jak zniknąć przycisk? Jak sprawić, aby nie można było włączyć przycisku?
+//Zmiana kolorów przycisków
+//Dlaczego nie mogę zmienić tła?
+//Jak zmienić tło po kliknięciu przycisku?
+
 public class GameRunner extends Application{
 
     ArrayList userListAfterGreeding;
     boolean moveControler;
-
-    private Image imageback = new Image("file:src/main/resources/Plansza do gry (2).png");
-    //Jak zmienić tło?
-    private Image imageback1 = new Image("file:src/main/resources/Plansza do gry (1).png");
-
+    private Image imageback = new Image("file:src/main/resources/Plansza do gry (1).png");
     private FlowPane animals = new FlowPane(Orientation.HORIZONTAL);
     private Label blueDice = new Label();
     private Label orangeDice = new Label();
@@ -43,8 +45,6 @@ public class GameRunner extends Application{
     private Label qCowsCom = new Label();
     private Label qHorsesCOm = new Label();
 
-
-
     public static void main(String[] args) {
         launch(args);
     }
@@ -53,7 +53,6 @@ public class GameRunner extends Application{
     public void start(Stage primaryStage) throws Exception {
         BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(imageback, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
-        BackgroundImage backgroundImage1 = new BackgroundImage(imageback1, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
 
         orangeDice.setFont(new Font("Arial", 40));
@@ -332,6 +331,7 @@ public class GameRunner extends Application{
         grid.add(exchangeRabbit, 5,20);
         grid.add(exchangeCow, 5,22);
         grid.add(exchangeHorse, 5,23);
+        grid.add(exchangeSheep,5,21);
 
         grid.add(qRabbits,1,5);
         grid.add(qSheeps,1,6);
