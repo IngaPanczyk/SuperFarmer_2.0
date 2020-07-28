@@ -31,7 +31,7 @@ public class GameRunner extends Application{
     private Label orangeDice = new Label();
     private Label blueDiceComputer = new Label();
     private Label orangeDiceComputer = new Label();
-    private Label informWinner = new Label();
+    private Label comunication = new Label();
     private Label qRabbits = new Label();
     private Label qSheeps = new Label();
     private Label qPigs = new Label();
@@ -64,8 +64,8 @@ public class GameRunner extends Application{
         orangeDiceComputer.setTextFill(Color.web("orange"));
         blueDiceComputer.setFont(new Font("Arial", 40));
         blueDiceComputer.setTextFill(Color.web("blue"));
-        informWinner.setFont(new Font("Arial", 40));
-        informWinner.setTextFill(Color.web("red"));
+        comunication.setFont(new Font("Arial", 40));
+        comunication.setTextFill(Color.web("red"));
         qRabbits.setFont(new Font("Arial", 30));
         qRabbits.setTextFill(Color.web("green"));
         qSheeps.setFont(new Font("Arial", 30));
@@ -110,6 +110,7 @@ public class GameRunner extends Application{
 
         Button throwDice = new Button();
         throwDice.setText("THROW DICE");
+        comunication.setText("YOUR MOVE");
         moveControler = true;
         while (moveControler == true) {
             moveControler = false;
@@ -126,7 +127,7 @@ public class GameRunner extends Application{
             if (userWinner == true) {
                 System.out.println("User WON!!!");
                 throwDice.setText("GAME OVER");
-                informWinner.setText("YOU WON");
+                comunication.setText("YOU WON");
             }
 
                 System.out.println("User after greeding has " + userListAfterGreeding.size() + " animals");
@@ -137,6 +138,7 @@ public class GameRunner extends Application{
                 qCows.setText("COWS: "+ String.valueOf(Collections.frequency(userListAfterGreeding, Animal.COW)));
                 qHorses.setText("HORSES: "+ String.valueOf(Collections.frequency(userListAfterGreeding, Animal.HORSE)));
                 System.out.println("Movecontrolermmm:" + moveControler);
+                comunication.setText("Computer Move");
 
             });
 
@@ -178,8 +180,10 @@ public class GameRunner extends Application{
 
                 if (getWinnerComputer.get() == true) {
                     System.out.println("Computer WON!!!");
-                    informWinner.setText("Computer WON!!!");
+                    comunication.setText("Computer WON!!!");
 
+                }else {
+                    comunication.setText("User move");
                 }
                 System.out.println("Computer after greeding has " + computerListAfterGreeding.size() + " animals");
 
@@ -259,7 +263,7 @@ public class GameRunner extends Application{
                 add(new ColumnConstraints(160)); // 3
         grid.getColumnConstraints().
 
-                add(new ColumnConstraints(160)); // 4
+                add(new ColumnConstraints(250)); // 4
         grid.getColumnConstraints().
 
                 add(new ColumnConstraints(160)); // 5
@@ -268,7 +272,7 @@ public class GameRunner extends Application{
                 add(new ColumnConstraints(200)); // 6
         grid.getColumnConstraints().
 
-                add(new ColumnConstraints(160)); // 7
+                add(new ColumnConstraints(200)); // 7
         grid.getColumnConstraints().
 
                 add(new ColumnConstraints(200)); // 8
@@ -319,14 +323,13 @@ public class GameRunner extends Application{
 
 
         grid.add(throwDice, 1, 1);
-        grid.add(throwComputer, 8, 1);
+        grid.add(throwComputer, 1, 2);
         grid.add(orangeDice, 2, 1);
         grid.add(blueDice, 3, 1);
         grid.add(orangeDiceComputer, 5, 1);
         grid.add(blueDiceComputer, 6, 1);
-        grid.add(informWinner, 6, 5);
+        grid.add(comunication, 4, 5,3,1);
         grid.add(exchangeRabbit, 5,20);
-        grid.add(exchangeSheep,5,21);
         grid.add(exchangeCow, 5,22);
         grid.add(exchangeHorse, 5,23);
 
@@ -335,11 +338,11 @@ public class GameRunner extends Application{
         grid.add(qPigs,1,7);
         grid.add(qCows,1,8);
         grid.add(qHorses,1,9);
-        grid.add(qRabbitsCom,8,5);
-        grid.add(qSheepsCom,8,6);
-        grid.add(qPigsCom,8,7);
-        grid.add(qCowsCom,8,8);
-        grid.add(qHorsesCOm,8,9);
+        grid.add(qRabbitsCom,7,5);
+        grid.add(qSheepsCom,7,6);
+        grid.add(qPigsCom,7,7);
+        grid.add(qCowsCom,7,8);
+        grid.add(qHorsesCOm,7,9);
 
 
 
