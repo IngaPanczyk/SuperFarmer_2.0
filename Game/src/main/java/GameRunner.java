@@ -18,14 +18,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static javafx.application.Application.launch;
 
 
-//Jak zniknąć przycisk? Jak sprawić, aby nie można było włączyć przycisku?
-//Zmiana kolorów przycisków
-//Jak zmienić tło po kliknięciu przycisku?
-
 public class GameRunner extends Application {
 
     ArrayList userListAfterGreeding;
-    boolean moveControler;
+    boolean moveControler = true;
+    boolean userWinner = false;
     private Image imageback = new Image("file:src/main/resources/Plansza do gry (3).png");
     private FlowPane animals = new FlowPane(Orientation.HORIZONTAL);
     private Label blueDice = new Label();
@@ -107,19 +104,22 @@ public class GameRunner extends Application {
         //PRZYCISKI ---------------------------------------------------------------------------------------------------
 
         Button throwDice = new Button();
+        Button throwComputer = new Button();
+
+        throwComputer.setVisible(false);
         throwDice.setText("THROW DICE");
         comunication.setText("YOUR MOVE");
-        moveControler = true;
-        while (moveControler == true) {
-            moveControler = false;
-            throwDice.setOnAction((e) -> {
+
+        throwDice.setOnAction((e) -> {
+            if (moveControler == true && userWinner == false) {
+
                 Dice dice = new Dice();
                 Animal orange = dice.orangeDice();
                 Animal blue = dice.blueDice();
                 orangeDice.setText(String.valueOf(orange));
                 blueDice.setText(String.valueOf(blue));
                 userListAfterGreeding = userAnimalList.greedingUser(userList, orange, blue);
-                boolean userWinner = userAnimalList.checkAnimalsInCollection(userListAfterGreeding);
+                userWinner = userAnimalList.checkAnimalsInCollection(userListAfterGreeding);
                 comunication.setText("Computer Move");
 
                 if (userWinner == true) {
@@ -135,20 +135,26 @@ public class GameRunner extends Application {
                 qPigs.setText("PIGS: " + String.valueOf(Collections.frequency(userListAfterGreeding, Animal.PIG)));
                 qCows.setText("COWS: " + String.valueOf(Collections.frequency(userListAfterGreeding, Animal.COW)));
                 qHorses.setText("HORSES: " + String.valueOf(Collections.frequency(userListAfterGreeding, Animal.HORSE)));
-                System.out.println("Movecontrolermmm:" + moveControler);
+                moveControler = false;
+                System.out.println("Movecontroler:" + moveControler);
+                throwComputer.setVisible(true);
+                throwDice.setVisible(false);
+            }else {
+                throwDice.setText("GAME OVER");
+                comunication.setText("YOU WON");
+            }
+        });
 
-            });
 
-        }
         System.out.println("Movecontrolermmm:" + moveControler);
 
-        Button throwComputer = new Button();
         throwComputer.setText("FINISH YOUR MOVE");
-        while (moveControler == false) {
-            System.out.println("Movecontroler:" + moveControler);
-            moveControler = true;
-            System.out.println("Movecontroler:" + moveControler);
-            throwComputer.setOnAction((e) -> {
+
+        System.out.println("Movecontroler:" + moveControler);
+
+        System.out.println("Movecontroler:" + moveControler);
+        throwComputer.setOnAction((e) -> {
+            if (!moveControler && getWinnerComputer.get() == false) {
                 Dice dice = new Dice();
                 Animal orange = dice.orangeDice();
                 Animal blue = dice.blueDice();
@@ -179,8 +185,6 @@ public class GameRunner extends Application {
                     System.out.println("Computer WON!!!");
                     comunication.setText("Computer WON!!!");
 
-                } else {
-                    comunication.setText("User move");
                 }
                 System.out.println("Computer after greeding has " + computerListAfterGreeding.size() + " animals");
 
@@ -190,9 +194,16 @@ public class GameRunner extends Application {
                 qCowsCom.setText("COWS: " + String.valueOf(Collections.frequency(computerListAfterGreeding, Animal.COW)));
                 qHorsesCOm.setText("HORSES: " + String.valueOf(Collections.frequency(computerListAfterGreeding, Animal.HORSE)));
                 System.out.println("------------------------------------------------------------------------");
+                moveControler = true;
+                System.out.println("Movecontroler:" + moveControler);
+                throwComputer.setVisible(false);
+                throwDice.setVisible(true);
+            }else {
+                throwDice.setText("GAME OVER");
+                comunication.setText("COMPUTER WON");
+            }
+        });
 
-            });
-        }
 
         Button exchangeRabbit = new Button();
         exchangeRabbit.setText("6 RABBIT = 1 SHEEP");
