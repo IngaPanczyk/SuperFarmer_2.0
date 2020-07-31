@@ -4,20 +4,8 @@ import java.util.Collections;
 public class ComputerAnimalList {
     public boolean checkAnimalsInCollection(ArrayList computerListAfterGreeding) {
 
-        if (computerListAfterGreeding.contains(Animal.RABBIT)) {
-        }
-        if (computerListAfterGreeding.contains(Animal.SHEEP)) {
-
-        }
-        if (computerListAfterGreeding.contains(Animal.PIG)) {
-
-        }
-        if (computerListAfterGreeding.contains(Animal.COW)) {
-
-        }
-        if (computerListAfterGreeding.contains(Animal.HORSE)) {
+        if (computerListAfterGreeding.contains(Animal.RABBIT)&& computerListAfterGreeding.contains(Animal.SHEEP)&&computerListAfterGreeding.contains(Animal.PIG) && computerListAfterGreeding.contains(Animal.COW) && computerListAfterGreeding.contains(Animal.HORSE)){
             return true;
-        } else {
         }
         return false;
     }
@@ -141,7 +129,7 @@ public class ComputerAnimalList {
         return animalList;
     }
 
-    public ArrayList exRabbitToScheep(ArrayList greedingComputer) {
+    public void exRabbitToScheep(ArrayList greedingComputer) {
         greedingComputer.remove(Animal.RABBIT);
         greedingComputer.remove(Animal.RABBIT);
         greedingComputer.remove(Animal.RABBIT);
@@ -150,7 +138,6 @@ public class ComputerAnimalList {
         greedingComputer.remove(Animal.RABBIT);
         greedingComputer.add(Animal.SHEEP);
 
-        return greedingComputer;
     }
 
     public void exSheepToPig(ArrayList computerListAfterGreeding) {

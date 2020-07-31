@@ -26,11 +26,6 @@ public class UserAnimalList {
 
         System.out.println("User move: " + orange + " " + blue);
 
-        if (orange == blue) {
-            userAnimalList.add(orange);
-            System.out.println("User +" + orange);
-
-        }
         int qantityOfPig = Collections.frequency(userAnimalList, Animal.PIG);
         if (orange == Animal.PIG) {
             for (int n = 0; n < (qantityOfPig + 1) / 2; n++) {
@@ -103,14 +98,16 @@ public class UserAnimalList {
             }
         }
         if (blue == Animal.WOLF) {
-            for (int n = 0; userAnimalList.size() > n; n++) {
-                userAnimalList.remove(n);
-            }
+
+            userAnimalList.removeAll(userAnimalList);
+
             if (Collections.frequency(userAnimalList, Animal.RABBIT) > 0) {
                 userAnimalList.add(Animal.RABBIT);
             }
-        } else if (orange == Animal.WOLF) {
-            for (int n = 0; userAnimalList.size() > n; n++) {
+        }
+        if (orange == Animal.WOLF) {
+            userAnimalList.removeAll(userAnimalList);
+            for (int n = 0; n < userAnimalList.size(); n++) {
                 userAnimalList.remove(n);
             }
             if (Collections.frequency(userAnimalList, Animal.RABBIT) > 0) {
@@ -126,10 +123,12 @@ public class UserAnimalList {
                 userAnimalList.remove(Animal.RABBIT);
             }
         }
-
+        if (orange == blue) {
+            userAnimalList.add(orange);
+            System.out.println("User +" + orange);
+        }
         return userAnimalList;
     }
-
     public ArrayList getlist() {
         ArrayList userList = new ArrayList();
         return userList;

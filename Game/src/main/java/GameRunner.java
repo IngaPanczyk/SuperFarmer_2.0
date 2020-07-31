@@ -40,7 +40,7 @@ public class GameRunner extends Application {
     private Label qSheepsCom = new Label();
     private Label qPigsCom = new Label();
     private Label qCowsCom = new Label();
-    private Label qHorsesCOm = new Label();
+    private Label qHorsesCom = new Label();
 
     public static void main(String[] args) {
         launch(args);
@@ -80,8 +80,8 @@ public class GameRunner extends Application {
         qPigsCom.setTextFill(Color.web("green"));
         qCowsCom.setFont(new Font("Arial", 30));
         qCowsCom.setTextFill(Color.web("green"));
-        qHorsesCOm.setFont(new Font("Arial", 30));
-        qHorsesCOm.setTextFill(Color.web("green"));
+        qHorsesCom.setFont(new Font("Arial", 30));
+        qHorsesCom.setTextFill(Color.web("green"));
 
 
         GridPane grid = new GridPane();
@@ -108,7 +108,7 @@ public class GameRunner extends Application {
 
         throwComputer.setVisible(false);
         throwDice.setText("THROW DICE");
-        comunication.setText("YOUR MOVE");
+        comunication.setText("User Move");
 
         throwDice.setOnAction((e) -> {
             if (moveControler == true && userWinner == false) {
@@ -146,15 +146,12 @@ public class GameRunner extends Application {
         });
 
 
-        System.out.println("Movecontrolermmm:" + moveControler);
-
         throwComputer.setText("FINISH YOUR MOVE");
-
         System.out.println("Movecontroler:" + moveControler);
 
-        System.out.println("Movecontroler:" + moveControler);
         throwComputer.setOnAction((e) -> {
             if (!moveControler && getWinnerComputer.get() == false) {
+                comunication.setText("User move");
                 Dice dice = new Dice();
                 Animal orange = dice.orangeDice();
                 Animal blue = dice.blueDice();
@@ -192,7 +189,7 @@ public class GameRunner extends Application {
                 qSheepsCom.setText("SHEEP: " + String.valueOf(Collections.frequency(computerListAfterGreeding, Animal.SHEEP)));
                 qPigsCom.setText("PIGS: " + String.valueOf(Collections.frequency(computerListAfterGreeding, Animal.PIG)));
                 qCowsCom.setText("COWS: " + String.valueOf(Collections.frequency(computerListAfterGreeding, Animal.COW)));
-                qHorsesCOm.setText("HORSES: " + String.valueOf(Collections.frequency(computerListAfterGreeding, Animal.HORSE)));
+                qHorsesCom.setText("HORSES: " + String.valueOf(Collections.frequency(computerListAfterGreeding, Animal.HORSE)));
                 System.out.println("------------------------------------------------------------------------");
                 moveControler = true;
                 System.out.println("Movecontroler:" + moveControler);
@@ -214,8 +211,11 @@ public class GameRunner extends Application {
                     userListAfterGreeding.remove(Animal.RABBIT);
                 }
                 System.out.println("Exchanged 6 RABBITS TO 1 SHEEP");
+                qSheeps.setText("SHEEP: " + String.valueOf(Collections.frequency(userListAfterGreeding, Animal.SHEEP)));
+                qRabbits.setText("RABBITS: " + String.valueOf(Collections.frequency(userListAfterGreeding, Animal.RABBIT)));
             }
         });
+
 
         Button exchangeSheep = new Button();
         exchangeSheep.setText("3 SHEEP = 1 PIG");
@@ -225,7 +225,40 @@ public class GameRunner extends Application {
                 userListAfterGreeding.remove(Animal.SHEEP);
                 userListAfterGreeding.remove(Animal.SHEEP);
                 userListAfterGreeding.remove(Animal.SHEEP);
+                qSheeps.setText("SHEEP: " + String.valueOf(Collections.frequency(userListAfterGreeding, Animal.SHEEP)));
+                qPigs.setText("PIGS: " + String.valueOf(Collections.frequency(userListAfterGreeding, Animal.PIG)));
                 System.out.println("Exchanged 3 SHEEP TO 1 PIG");
+            }
+        });
+
+        Button exchangePigDown = new Button();
+        exchangePigDown.setText("1 PIG = 3 SHEEP");
+        exchangePigDown.setOnAction((e) -> {
+            if (Collections.frequency(userListAfterGreeding, Animal.PIG) > 1) {
+                userListAfterGreeding.remove(Animal.PIG);
+                userListAfterGreeding.add(Animal.SHEEP);
+                userListAfterGreeding.add(Animal.SHEEP);
+                userListAfterGreeding.add(Animal.SHEEP);
+                qSheeps.setText("SHEEP: " + String.valueOf(Collections.frequency(userListAfterGreeding, Animal.SHEEP)));
+                qPigs.setText("PIGS: " + String.valueOf(Collections.frequency(userListAfterGreeding, Animal.PIG)));
+                System.out.println("Exchanged 1 PIG TO 3 SHEEP");
+            }
+        });
+        Button exchangeSheepDown = new Button();
+        exchangeSheepDown.setText("1 SHEEP = 6 RABBITS");
+        exchangeSheepDown.setOnAction((e) -> {
+            if (Collections.frequency(userListAfterGreeding, Animal.SHEEP) > 1) {
+                userListAfterGreeding.remove(Animal.SHEEP);
+                userListAfterGreeding.add(Animal.RABBIT);
+                userListAfterGreeding.add(Animal.RABBIT);
+                userListAfterGreeding.add(Animal.RABBIT);
+                userListAfterGreeding.add(Animal.RABBIT);
+                userListAfterGreeding.add(Animal.RABBIT);
+                userListAfterGreeding.add(Animal.RABBIT);
+
+                System.out.println("Exchanged 1 SHEEP TO 6 RABBITS");
+                qSheeps.setText("SHEEP: " + String.valueOf(Collections.frequency(userListAfterGreeding, Animal.SHEEP)));
+                qRabbits.setText("RABBITS: " + String.valueOf(Collections.frequency(userListAfterGreeding, Animal.RABBIT)));
             }
         });
 
@@ -237,6 +270,23 @@ public class GameRunner extends Application {
                 userListAfterGreeding.remove(Animal.PIG);
                 userListAfterGreeding.remove(Animal.PIG);
                 System.out.println("Exchanged 2 PIG TO 1 COW");
+                qPigs.setText("PIGS: " + String.valueOf(Collections.frequency(userListAfterGreeding, Animal.PIG)));
+                qCows.setText("COWS: " + String.valueOf(Collections.frequency(userListAfterGreeding, Animal.COW)));
+
+            }
+        });
+
+        Button exchangeCowDown = new Button();
+        exchangeCowDown.setText("1 COW = 2 PIGS");
+        exchangeCowDown.setOnAction((e) -> {
+            if (Collections.frequency(userListAfterGreeding, Animal.COW) > 1) {
+                userListAfterGreeding.remove(Animal.COW);
+                userListAfterGreeding.add(Animal.PIG);
+                userListAfterGreeding.add(Animal.PIG);
+                System.out.println("Exchanged 2 COW TO 2 PIGS");
+                qPigs.setText("PIGS: " + String.valueOf(Collections.frequency(userListAfterGreeding, Animal.PIG)));
+                qCows.setText("COWS: " + String.valueOf(Collections.frequency(userListAfterGreeding, Animal.COW)));
+
             }
         });
 
@@ -248,8 +298,24 @@ public class GameRunner extends Application {
                 userListAfterGreeding.remove(Animal.COW);
                 userListAfterGreeding.remove(Animal.COW);
                 System.out.println("Exchanged 2 COW TO 1 HORSE");
+                qCows.setText("COWS: " + String.valueOf(Collections.frequency(userListAfterGreeding, Animal.COW)));
+                qHorses.setText("HORSES: " + String.valueOf(Collections.frequency(userListAfterGreeding, Animal.HORSE)));
+
             }
 
+        });
+        Button exchangeHorseDown = new Button();
+        exchangeHorseDown.setText("1 HORSE = 2 COW");
+        exchangeHorseDown.setOnAction((e) -> {
+            if (Collections.frequency(userListAfterGreeding, Animal.HORSE) > 1) {
+                userListAfterGreeding.remove(Animal.HORSE);
+                userListAfterGreeding.add(Animal.COW);
+                userListAfterGreeding.add(Animal.COW);
+                System.out.println("Exchanged 1 HORSE TO 2 COWS");
+                qCows.setText("COWS: " + String.valueOf(Collections.frequency(userListAfterGreeding, Animal.COW)));
+                qHorses.setText("HORSES: " + String.valueOf(Collections.frequency(userListAfterGreeding, Animal.HORSE)));
+
+            }
         });
 
         grid.getColumnConstraints().
@@ -330,11 +396,14 @@ public class GameRunner extends Application {
         grid.add(orangeDiceComputer, 5, 1);
         grid.add(blueDiceComputer, 6, 1);
         grid.add(comunication, 4, 5, 3, 1);
-        grid.add(exchangeRabbit, 5, 20);
-        grid.add(exchangeCow, 5, 22);
-        grid.add(exchangeHorse, 5, 23);
-        grid.add(exchangeSheep, 5, 21);
-
+        grid.add(exchangeRabbit, 5, 12);
+        grid.add(exchangeCow, 5, 11);
+        grid.add(exchangeHorse, 5, 10);
+        grid.add(exchangePigDown, 5, 9);
+        grid.add(exchangeSheep, 5, 13);
+        grid.add(exchangeCowDown, 5, 14);
+        grid.add(exchangeHorseDown, 5, 15);
+        grid.add(exchangeSheepDown, 5, 8);
         grid.add(qRabbits, 1, 5);
         grid.add(qSheeps, 1, 6);
         grid.add(qPigs, 1, 7);
@@ -344,7 +413,7 @@ public class GameRunner extends Application {
         grid.add(qSheepsCom, 7, 6);
         grid.add(qPigsCom, 7, 7);
         grid.add(qCowsCom, 7, 8);
-        grid.add(qHorsesCOm, 7, 9);
+        grid.add(qHorsesCom, 7, 9);
 
 
         Scene scene = new Scene(grid, 1600, 900, Color.YELLOW);
