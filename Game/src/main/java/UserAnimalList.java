@@ -42,13 +42,13 @@ public class UserAnimalList {
         }
         int qantityOfRabbit = Collections.frequency(userAnimalList, Animal.RABBIT);
         ;
-        if (orange == Animal.RABBIT) {
+        if (orange == Animal.RABBIT && orange !=Animal.FOX) {
             for (int n = 0; n < (qantityOfRabbit + 1) / 2; n++) {
                 userAnimalList.add(Animal.RABBIT);
                 System.out.println("User + " + orange);
                 userAnimalList.size();
             }
-        } else if (blue == Animal.RABBIT) {
+        } else if (blue == Animal.RABBIT && blue !=Animal.FOX) {
             for (int n = 0; n < (qantityOfRabbit + 1) / 2; n++) {
                 userAnimalList.add(Animal.RABBIT);
                 System.out.println("User + " + blue);
@@ -115,11 +115,11 @@ public class UserAnimalList {
             }
         }
         if (blue == Animal.FOX) {
-            for (int n = 0; n < qantityOfRabbit; n++) {
+            for (int n = 0; n < (qantityOfRabbit +1) ; n++) {
                 userAnimalList.remove(Animal.RABBIT);
             }
         } else if (orange == Animal.FOX) {
-            for (int n = 0; n < qantityOfRabbit; n++) {
+            for (int n = 0; n < (qantityOfRabbit +1 ); n++) {
                 userAnimalList.remove(Animal.RABBIT);
             }
         }
