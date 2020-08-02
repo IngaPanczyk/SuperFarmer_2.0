@@ -97,4 +97,32 @@ public class SuperFarmerTest {
         //Then
         Assert.assertEquals(true, result);
     }
+
+    @Test
+    public void greedingRabbitRabbitComputer() {
+        //Given
+        ComputerAnimalList computerAnimalList = new ComputerAnimalList();
+        Animal orange = Animal.RABBIT;
+        Animal blue = Animal.RABBIT;
+        ArrayList<Animal> animaList = new ArrayList<>();
+        //When
+        int result = (computerAnimalList.greedingComputer(animaList, orange, blue)).size();
+        //Then
+        Assert.assertEquals(1, result);
+    }
+    @Test
+    public void testRabbitWolfBlueComputer() {
+        //Given
+        ComputerAnimalList computerAnimalList = new ComputerAnimalList();
+        Animal orange = Animal.RABBIT;
+        Animal blue = Animal.WOLF;
+        ArrayList<Animal> animaList = new ArrayList<>();
+        //animaList.add(Animal.RABBIT);
+        //animaList.add(Animal.RABBIT);
+        animaList.add(Animal.PIG);
+        //When
+        int result = (computerAnimalList.greedingComputer(animaList, orange, blue)).size();
+        //Then
+        Assert.assertEquals(0, result);
+    }
 }

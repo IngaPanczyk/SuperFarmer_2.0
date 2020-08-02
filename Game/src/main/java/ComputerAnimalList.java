@@ -35,7 +35,7 @@ public class ComputerAnimalList {
                 }
             }
             int qantityOfRabbit = Collections.frequency(computerAnimalList, Animal.RABBIT);
-            ;
+
             if (orange == Animal.RABBIT) {
                 for (int n = 0; n < (qantityOfRabbit + 1) / 2; n++) {
                     computerAnimalList.add(Animal.RABBIT);
@@ -90,24 +90,12 @@ public class ComputerAnimalList {
                     System.out.println("Computer +" + blue);
                     computerAnimalList.size();
                 }
-            } else if (blue == Animal.WOLF) {
-
-                computerAnimalList.add(Animal.RABBIT);
-            } else if (blue == Animal.FOX) {
-                for (int n = 0; n < qantityOfRabbit; n++) {
-                    computerAnimalList.remove(Animal.RABBIT);
-                }
             }
             if (blue == Animal.WOLF) {
-                for (int n = 0; computerAnimalList.size() > n; n++) {
-                    computerAnimalList.remove(n);
-                }
-                computerAnimalList.add(Animal.RABBIT);
-            } else if (orange == Animal.WOLF) {
-                for (int n = 0; computerAnimalList.size() > n; n++) {
-                    computerAnimalList.remove(n);
-                }
-                computerAnimalList.add(Animal.RABBIT);
+                computerAnimalList.removeAll(computerAnimalList);
+            }
+            if (orange == Animal.WOLF) {
+                computerAnimalList.removeAll(computerAnimalList);
             }
             if (blue == Animal.FOX) {
                 for (int n = 0; n < qantityOfRabbit; n++) {

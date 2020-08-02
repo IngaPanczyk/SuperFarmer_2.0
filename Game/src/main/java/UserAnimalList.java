@@ -101,18 +101,10 @@ public class UserAnimalList {
 
             userAnimalList.removeAll(userAnimalList);
 
-            if (Collections.frequency(userAnimalList, Animal.RABBIT) > 0) {
-                userAnimalList.add(Animal.RABBIT);
-            }
         }
         if (orange == Animal.WOLF) {
             userAnimalList.removeAll(userAnimalList);
-            for (int n = 0; n < userAnimalList.size(); n++) {
-                userAnimalList.remove(n);
-            }
-            if (Collections.frequency(userAnimalList, Animal.RABBIT) > 0) {
-                userAnimalList.add(Animal.RABBIT);
-            }
+
         }
         if (blue == Animal.FOX) {
             for (int n = 0; n < (qantityOfRabbit +1) ; n++) {
