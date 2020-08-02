@@ -13,8 +13,9 @@ public class SuperFarmerTest {
         Animal orange = Animal.RABBIT;
         Animal blue = Animal.RABBIT;
         ArrayList<Animal> animaList = new ArrayList<>();
+        boolean smalldog = false;
         //When
-        int result = (userAnimalList.greedingUser(animaList, orange, blue)).size();
+        int result = (userAnimalList.greedingUser(animaList, orange, blue, false,false)).size();
         //Then
         Assert.assertEquals(1, result);
     }
@@ -28,8 +29,10 @@ public class SuperFarmerTest {
         ArrayList<Animal> animaList = new ArrayList<>();
         animaList.add(Animal.RABBIT);
         animaList.add(Animal.RABBIT);
+        boolean smalldog = false;
+
         //When
-        int result = (userAnimalList.greedingUser(animaList, orange, blue)).size();
+        int result = (userAnimalList.greedingUser(animaList, orange, blue, false, false)).size();
         //Then
         Assert.assertEquals(0, result);
     }
@@ -44,11 +47,14 @@ public class SuperFarmerTest {
         animaList.add(Animal.RABBIT);
         animaList.add(Animal.RABBIT);
         animaList.add(Animal.PIG);
+        boolean smalldog = false;
+        boolean bigDog = false;
         //When
-        int result = (userAnimalList.greedingUser(animaList, orange, blue)).size();
+        int result = (userAnimalList.greedingUser(animaList, orange, blue, smalldog,bigDog)).size();
         //Then
         Assert.assertEquals(0, result);
     }
+
     @Test
     public void testUserRabbitWolfOrangeUser() {
         //Given
@@ -59,8 +65,10 @@ public class SuperFarmerTest {
         animaList.add(Animal.RABBIT);
         animaList.add(Animal.RABBIT);
         animaList.add(Animal.PIG);
+        boolean smalldog = false;
+        boolean bigDog = false;
         //When
-        int result = (userAnimalList.greedingUser(animaList, orange, blue)).size();
+        int result = (userAnimalList.greedingUser(animaList, orange, blue, smalldog,bigDog)).size();
         //Then
         Assert.assertEquals(0, result);
     }
@@ -81,6 +89,7 @@ public class SuperFarmerTest {
         //Then
         Assert.assertEquals(true, result);
     }
+
     @Test
     public void checkAnimalsInCollectionComputer() {
         //Given
@@ -110,6 +119,7 @@ public class SuperFarmerTest {
         //Then
         Assert.assertEquals(1, result);
     }
+
     @Test
     public void testRabbitWolfBlueComputer() {
         //Given
@@ -120,9 +130,93 @@ public class SuperFarmerTest {
         //animaList.add(Animal.RABBIT);
         //animaList.add(Animal.RABBIT);
         animaList.add(Animal.PIG);
+        boolean smalldog = false;
+
         //When
         int result = (computerAnimalList.greedingComputer(animaList, orange, blue)).size();
         //Then
         Assert.assertEquals(0, result);
+    }
+
+    @Test
+    public void smallDogTrue() {
+        //Given
+        UserAnimalList userAnimalList = new UserAnimalList();
+        Animal orange = Animal.PIG;
+        Animal blue = Animal.FOX;
+        ArrayList<Animal> animaList = new ArrayList<>();
+        animaList.add(Animal.RABBIT);
+        animaList.add(Animal.RABBIT);
+        animaList.add(Animal.RABBIT);
+        animaList.add(Animal.RABBIT);
+        animaList.add(Animal.RABBIT);
+        animaList.add(Animal.RABBIT);
+        boolean bigDog = false;
+        boolean smalldog = true;
+        //When
+        int result = (userAnimalList.greedingUser(animaList, orange, blue, smalldog, bigDog).size());
+        //Then
+        Assert.assertEquals(6, result);
+    }
+    @Test
+    public void smallDogFalse() {
+        //Given
+        UserAnimalList userAnimalList = new UserAnimalList();
+        Animal orange = Animal.PIG;
+        Animal blue = Animal.FOX;
+        ArrayList<Animal> animaList = new ArrayList<>();
+        animaList.add(Animal.RABBIT);
+        animaList.add(Animal.RABBIT);
+        animaList.add(Animal.RABBIT);
+        animaList.add(Animal.RABBIT);
+        animaList.add(Animal.RABBIT);
+        animaList.add(Animal.RABBIT);
+        boolean smalldog = false;
+        boolean bigDog = false;
+        //When
+        int result = (userAnimalList.greedingUser(animaList, orange, blue, smalldog, bigDog).size());
+        //Then
+        Assert.assertEquals(0, result);
+    }
+    @Test
+    public void bigDogFalse() {
+        //Given
+        UserAnimalList userAnimalList = new UserAnimalList();
+        Animal orange = Animal.PIG;
+        Animal blue = Animal.WOLF;
+        ArrayList<Animal> animaList = new ArrayList<>();
+        animaList.add(Animal.RABBIT);
+        animaList.add(Animal.RABBIT);
+        animaList.add(Animal.RABBIT);
+        animaList.add(Animal.RABBIT);
+        animaList.add(Animal.RABBIT);
+        animaList.add(Animal.RABBIT);
+        boolean smalldog = false;
+        boolean bigDog = false;
+        //When
+        int result = (userAnimalList.greedingUser(animaList, orange, blue, smalldog, bigDog).size());
+        //Then
+        Assert.assertEquals(0, result);
+    }
+    @Test
+    public void bigDogTrue() {
+        //Given
+        UserAnimalList userAnimalList = new UserAnimalList();
+        Animal orange = Animal.PIG;
+        Animal blue = Animal.WOLF;
+        ArrayList<Animal> animaList = new ArrayList<>();
+        animaList.add(Animal.RABBIT);
+        animaList.add(Animal.RABBIT);
+        animaList.add(Animal.RABBIT);
+        animaList.add(Animal.RABBIT);
+        animaList.add(Animal.RABBIT);
+        animaList.add(Animal.RABBIT);
+        animaList.add(Animal.HORSE);
+        boolean smalldog = false;
+        boolean bigDog = true;
+        //When
+        int result = (userAnimalList.greedingUser(animaList, orange, blue, smalldog, bigDog).size());
+        //Then
+        Assert.assertEquals(7, result);
     }
 }

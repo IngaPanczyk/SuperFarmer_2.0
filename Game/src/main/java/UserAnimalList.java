@@ -22,7 +22,7 @@ public class UserAnimalList {
         return false;
     }
 
-    public ArrayList greedingUser(ArrayList userAnimalList, Animal orange, Animal blue) {
+    public ArrayList greedingUser(ArrayList userAnimalList, Animal orange, Animal blue, boolean smallDog, boolean bigDog) {
 
         System.out.println("User move: " + orange + " " + blue);
 
@@ -97,23 +97,31 @@ public class UserAnimalList {
                 userAnimalList.size();
             }
         }
-        if (blue == Animal.WOLF) {
-
+        if (blue == Animal.WOLF && bigDog == false) {
             userAnimalList.removeAll(userAnimalList);
-
         }
-        if (orange == Animal.WOLF) {
+        if (orange == Animal.WOLF && bigDog == false) {
             userAnimalList.removeAll(userAnimalList);
-
         }
-        if (blue == Animal.FOX) {
+        if (blue == Animal.WOLF && bigDog != false) {
+            bigDog = false;
+        }
+        if (orange == Animal.WOLF && bigDog != false) {
+            bigDog = false;
+        }
+        if (blue == Animal.FOX && smallDog == false) {
             for (int n = 0; n < (qantityOfRabbit +1) ; n++) {
                 userAnimalList.remove(Animal.RABBIT);
             }
-        } else if (orange == Animal.FOX) {
+        } else if (orange == Animal.FOX && smallDog == false) {
             for (int n = 0; n < (qantityOfRabbit +1 ); n++) {
                 userAnimalList.remove(Animal.RABBIT);
             }
+        }
+        if (blue == Animal.FOX && smallDog != false) {
+          smallDog = false;
+        } else if (orange == Animal.FOX && smallDog != false) {
+            smallDog = false;
         }
         if (orange == blue) {
             userAnimalList.add(orange);
