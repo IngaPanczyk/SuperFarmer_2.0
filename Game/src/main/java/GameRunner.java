@@ -26,10 +26,11 @@ public class GameRunner extends Application {
     boolean userWinner = false;
     boolean smallDog = false;
     private boolean bigDog = false;
+    int level;
     int counter = 0; //do liczenia ilości rund do wygranej - ranking
 
-    private Image imageback = new Image("file:src/main/resources/Start.png");
-    private Image imageback1 = new Image("file:src/main/resources/Plansza.png");
+    private Image imageback = new Image("file:src/main/resources/Start2.png");
+    private Image imageback1 = new Image("file:src/main/resources/Plansza1.png");
     private Image youWon = new Image("file:src/main/resources/YouWon.png");
     private Image computerWon = new Image("file:src/main/resources/ComputerWon.png");
 
@@ -51,6 +52,7 @@ public class GameRunner extends Application {
     private Label qHorsesCom = new Label();
     private Label smallDogLabel = new Label();
     private Label bigDogLabel = new Label();
+    private Label moveCounter = new Label();
 
 
     public static void main(String[] args) {
@@ -102,6 +104,8 @@ public class GameRunner extends Application {
         smallDogLabel.setTextFill(Color.web("brown"));
         bigDogLabel.setFont(new Font("Arial", 25));
         bigDogLabel.setTextFill(Color.web("brown"));
+        moveCounter.setFont(new Font("Arial", 25));
+        moveCounter.setTextFill(Color.web("brown"));
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.TOP_LEFT);
@@ -131,9 +135,13 @@ public class GameRunner extends Application {
         Button exchangeHorseDown = new Button();
         Button exchangeToSmallDog = new Button();
         Button exchangeToBigDog = new Button();
+        Button level0 = new Button();
+        Button level1 = new Button();
 
         starGameWithOneRabbit.setVisible(true);
         startGameWithNothing.setVisible(true);
+        level0.setVisible(true);
+        level1.setVisible(true);
         exchangeCow.setVisible(false);
         exchangeCowDown.setVisible(false);
         exchangeHorse.setVisible(false);
@@ -164,13 +172,26 @@ public class GameRunner extends Application {
         comunication.setText("User Move");
         exchangeToSmallDog.setText("6 RABBITS = 1 SMALL DOG");
         exchangeToBigDog.setText("1 COW = 1 BIG DOG");
+        level0.setText("LEVEL EASY");
+        level1.setText("LEVEL HARD");
+
+
+        level1.setOnAction((e) -> {
+            level = 1;
+            System.out.println("Your level is hard");
+            level1.setVisible(false);
+
+        });
+
 
         throwDice.setOnAction((e) -> {
             if (moveControler == true && userWinner == false) {
-
+                counter++;
                 Dice dice = new Dice();
-                Animal orange = dice.orangeDice();
-                Animal blue = dice.blueDice();
+                System.out.println("level: "+ level);
+                Animal orange = dice.orangeDicelevel(level);
+                Animal blue = dice.blueDicelevel(level);
+
                 orangeDice.setText(String.valueOf(orange));
                 blueDice.setText(String.valueOf(blue));
                 userListAfterGreeding = userAnimalList.greedingUser(userList, orange, blue,smallDog,bigDog);
@@ -218,6 +239,7 @@ public class GameRunner extends Application {
                 qPigs.setText("PIGS: " + String.valueOf(Collections.frequency(userListAfterGreeding, Animal.PIG)));
                 qCows.setText("COWS: " + String.valueOf(Collections.frequency(userListAfterGreeding, Animal.COW)));
                 qHorses.setText("HORSES: " + String.valueOf(Collections.frequency(userListAfterGreeding, Animal.HORSE)));
+                moveCounter.setText("ROUND: "+ counter);
                 moveControler = false;
                 System.out.println("Movecontroler:" + moveControler);
                 throwComputer.setVisible(true);
@@ -487,7 +509,7 @@ public class GameRunner extends Application {
 
         grid.getColumnConstraints().
 
-                add(new ColumnConstraints(80)); // 0
+                add(new ColumnConstraints(120)); // 0
         grid.getColumnConstraints().
 
                 add(new ColumnConstraints(200)); // 1
@@ -584,8 +606,11 @@ public class GameRunner extends Application {
         grid.add(qHorsesCom, 7, 9);
         grid.add(starGameWithOneRabbit, 2, 7);
         grid.add(startGameWithNothing, 7, 7);
+        grid.add(level1, 4, 14);
         grid.add(smallDogLabel, 1,3);
         grid.add(bigDogLabel, 1,4);
+        grid.add(moveCounter,0,0);
+
 
 
         Scene scene = new Scene(grid, 1600, 900, Color.YELLOW);
