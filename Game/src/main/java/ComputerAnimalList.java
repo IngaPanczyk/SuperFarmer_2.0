@@ -144,5 +144,11 @@ public class ComputerAnimalList {
         computerListAfterGreeding.remove(Animal.COW);
         computerListAfterGreeding.add(Animal.HORSE);
     }
+
+    public void removeAll(ArrayList computerListAfterGreeding) {
+        while (computerListAfterGreeding.size()>0) {
+            computerListAfterGreeding.remove(0);
+        }
+    }
 }
 
