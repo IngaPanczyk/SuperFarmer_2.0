@@ -3,6 +3,7 @@ import java.util.Random;
 public class Dice {
     Animal orange;
     Animal blue;
+
     public static Animal orangeDice() {
         Random randomBlue = new Random();
         int n = randomBlue.nextInt(13);
@@ -40,7 +41,7 @@ public class Dice {
         int z = randomOrange.nextInt(13);
         if (z == 1) {
             return Animal.COW;
-        } else if (z >1 &&z < 4) {
+        } else if (z > 1 && z < 4) {
             return Animal.FOX;
         } else if (z >= 5 && z <= 7) {
             return Animal.RABBIT;
@@ -56,7 +57,7 @@ public class Dice {
         int n = randomBlue.nextInt(13);
         if (n == 1) {
             return Animal.HORSE;
-        } else if (n >=2 && n <=3) {
+        } else if (n >= 2 && n <= 3) {
             return Animal.WOLF;
         } else if (n >= 4 && n <= 7) {
             return Animal.RABBIT;
@@ -69,20 +70,21 @@ public class Dice {
 
     public Animal orangeDicelevel(int level) {
         Dice dice = new Dice();
-        if(level == 1){
+        if (level == 1) {
             orange = dice.orangeDice1();
         }
-        if (level == 0){
+        if (level == 0) {
             orange = dice.orangeDice();
         }
         return orange;
     }
+
     public Animal blueDicelevel(int level) {
         Dice dice = new Dice();
-        if(level == 1){
+        if (level == 1) {
             blue = dice.blueDice1();
         }
-        if (level == 0){
+        if (level == 0) {
             blue = dice.blueDice();
         }
         return blue;

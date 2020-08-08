@@ -4,7 +4,7 @@ import java.util.Collections;
 public class ComputerAnimalList {
     public boolean checkAnimalsInCollection(ArrayList computerListAfterGreeding) {
 
-        if (computerListAfterGreeding.contains(Animal.RABBIT)&& computerListAfterGreeding.contains(Animal.SHEEP)&&computerListAfterGreeding.contains(Animal.PIG) && computerListAfterGreeding.contains(Animal.COW) && computerListAfterGreeding.contains(Animal.HORSE)){
+        if (computerListAfterGreeding.contains(Animal.RABBIT) && computerListAfterGreeding.contains(Animal.SHEEP) && computerListAfterGreeding.contains(Animal.PIG) && computerListAfterGreeding.contains(Animal.COW) && computerListAfterGreeding.contains(Animal.HORSE)) {
             return true;
         }
         return false;
@@ -146,7 +146,7 @@ public class ComputerAnimalList {
     }
 
     public void removeAll(ArrayList computerListAfterGreeding) {
-        while (computerListAfterGreeding.size()>0) {
+        while (computerListAfterGreeding.size() > 0) {
             computerListAfterGreeding.remove(0);
         }
     }
