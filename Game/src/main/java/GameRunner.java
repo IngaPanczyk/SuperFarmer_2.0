@@ -29,13 +29,13 @@ public class GameRunner extends Application {
     boolean smallDog = false;
     private boolean bigDog = false;
     ArrayList counterList = new ArrayList();
+    ArrayList counterComputerList = new ArrayList();
     int level;
     int counter = 0;
-    int counterComputer =0;
+    int counterComputer = 0;
     File savedUserList = new File("Ranking.list");
 
     List list = new ArrayList<>();
-    //GameRunner gameRunner = new GameRunner();
     UserAnimalList userAnimalList = new UserAnimalList();
     ComputerAnimalList computerAnimalLIst = new ComputerAnimalList();
     ArrayList userList = userAnimalList.getlist();
@@ -45,8 +45,6 @@ public class GameRunner extends Application {
     private Image imageback1 = new Image("file:src/main/resources/Plansza1.png");
     private Image youWon = new Image("file:src/main/resources/YouWon.png");
     private Image computerWon = new Image("file:src/main/resources/ComputerWon.png");
-
-    //private FlowPane animals = new FlowPane(Orientation.HORIZONTAL);
     private Label blueDice = new Label();
     private Label orangeDice = new Label();
     private Label blueDiceComputer = new Label();
@@ -65,8 +63,8 @@ public class GameRunner extends Application {
     private Label smallDogLabel = new Label();
     private Label bigDogLabel = new Label();
     private Label moveCounter = new Label();
+    private Label showComputerScores = new Label();
     private Label showScores = new Label();
-
 
     public static void main(String[] args) {
         launch(args);
@@ -78,7 +76,7 @@ public class GameRunner extends Application {
             oos.writeObject(userListAfterGreeding);
             oos.close();
         } catch (Exception e) {
-            // obsługa błędów
+            System.out.println("Error");
         }
     }
 
@@ -91,7 +89,7 @@ public class GameRunner extends Application {
             }
             ois.close();
         } catch (Exception e) {
-            // obsługa błędów
+            System.out.println("Error");
         }
     }
 
@@ -103,10 +101,6 @@ public class GameRunner extends Application {
         BackgroundImage backgroundImage1 = new BackgroundImage(imageback1, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         BackgroundImage backgroundYouWon = new BackgroundImage(youWon, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         BackgroundImage backgroundComputerWon = new BackgroundImage(computerWon, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
-
-        System.out.println("Czy plik istnieje: " + savedUserList.exists());
-        System.out.println("Gdzie go szukam: " + savedUserList.getAbsolutePath());
-
 
         orangeDice.setFont(new Font("Arial", 40));
         orangeDice.setTextFill(Color.web("orange"));
@@ -149,6 +143,10 @@ public class GameRunner extends Application {
         showScores.setTextFill((Color.web("white")));
         showScores.setPrefWidth(2000);
         showScores.setWrapText(true);
+        showComputerScores.setFont(new Font("Arial", 20));
+        showComputerScores.setTextFill((Color.web("white")));
+        showComputerScores.setPrefWidth(2000);
+        showComputerScores.setWrapText(true);
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.TOP_LEFT);
@@ -191,9 +189,10 @@ public class GameRunner extends Application {
         Button playAgain = new Button();
         playAgain.setStyle("-fx-font: 20 arial; -fx-base: #d8ee11;");
         Button save = new Button();
-        ToggleButton btn = new ToggleButton("Say 'Hello World'");
+        save.setStyle("-fx-font: 15 arial; -fx-base: #bd1349;");
 
-        visibilitySetup(starGameWithOneRabbit, startGameWithNothing, throwDice, throwComputer, exchangeRabbit, exchangeSheep, exchangePigDown, exchangeSheepDown, exchangeCow, exchangeCowDown, exchangeHorse, exchangeHorseDown, exchangeToSmallDog, exchangeToBigDog, level0, level1, playAgain, showScores, save);
+
+        visibilitySetup(starGameWithOneRabbit, startGameWithNothing, throwDice, throwComputer, exchangeRabbit, exchangeSheep, exchangePigDown, exchangeSheepDown, exchangeCow, exchangeCowDown, exchangeHorse, exchangeHorseDown, exchangeToSmallDog, exchangeToBigDog, level0, level1, playAgain, showScores, save, showComputerScores);
 
         starGameWithOneRabbit.setText("START");
         startGameWithNothing.setText("START");
@@ -215,9 +214,6 @@ public class GameRunner extends Application {
         playAgain.setText("PLAY AGAIN");
         save.setText("SAVE");
 
-        btn.setOnAction((ActionEvent event) -> {
-            System.out.println("Hello World!");
-        });
         level1.setOnAction((e) -> {
             level = 1;
             System.out.println("Your level is hard");
@@ -236,6 +232,8 @@ public class GameRunner extends Application {
             qHorses.setVisible(true);
             qHorsesCom.setVisible(true);
             save.setVisible(true);
+            GameRunner gameRunner = new GameRunner();
+            gameRunner.loadUserListAfterGreeding();
 
             if (moveControler == true && userWinner == false) {
                 counter++;
@@ -247,7 +245,8 @@ public class GameRunner extends Application {
 
                 orangeDice.setText(String.valueOf(orange));
                 blueDice.setText(String.valueOf(blue));
-                userListAfterGreeding = userAnimalList.greedingUser(userList, orange, blue, smallDog, bigDog);
+                userList =
+                        userListAfterGreeding = userAnimalList.greedingUser(userList, orange, blue, smallDog, bigDog);
                 userWinner = userAnimalList.checkAnimalsInCollection(userListAfterGreeding);
                 comunication.setText("Computer Move");
 
@@ -263,24 +262,12 @@ public class GameRunner extends Application {
                 throwComputer.setVisible(true);
                 throwDice.setVisible(false);
                 System.out.println("level: 0" + level);
-            } else {
-                comunication.setText("YOU WON");
-                computerListAfterGreeding = new ArrayList();
-                userListAfterGreeding = new ArrayList();
-                computerList = new ArrayList();
-                userList = new ArrayList();
-                computerWinner = false;
-                userWinner = false;
-                System.out.println(counterList);
-                counterList.add(counter);
-                counter = 0;
+                gameRunner.saveUserListAfterGreeding();
             }
             if (userWinner == true) {
-                list.add(counter);
                 counterList.add(counter);
-                counter = 0;
                 userListAfterGreeding = userAnimalList.greedingUser(userList, Animal.WOLF, Animal.FOX, false, false);
-                System.out.println("Po ilu ruchcach zwyciężyłeś: " + counterList);
+                System.out.println("Po ilu ruchcach zwyciężyłeś: " + counterList.toString());
 
                 userListAfterGreeding = new ArrayList();
                 computerListAfterGreeding = new ArrayList();
@@ -290,7 +277,10 @@ public class GameRunner extends Application {
                 comunication.setText("YOU WON");
                 showScores.setVisible(true);
                 showScores.setText("Your scores" + counterList.toString());
+                showComputerScores.setVisible(true);
+                showComputerScores.setText("Computer scores" + counterComputerList.toString());
                 exchangeCow.setVisible(false);
+                smallDogLabel.setVisible(false);
                 exchangeCowDown.setVisible(false);
                 exchangeHorse.setVisible(false);
                 exchangeHorseDown.setVisible(false);
@@ -321,10 +311,12 @@ public class GameRunner extends Application {
                 moveCounter.setVisible(false);
                 bigDogLabel.setVisible(false);
                 playAgain.setVisible(true);
+                bigDogLabel.setVisible(false);
             }
         });
         save.setOnAction((e) -> {
-            //gameRunner.saveUserListAfterGreeding();
+            GameRunner gameRunner = new GameRunner();
+            gameRunner.saveUserListAfterGreeding();
         });
         throwComputer.setOnAction((e) -> {
             computerWinner = false;
@@ -388,6 +380,10 @@ public class GameRunner extends Application {
                 userList = new ArrayList();
                 computerWinner = false;
                 userWinner = false;
+                counterComputerList.add(counter);
+                showComputerScores.setText("Computer scores: " + counterComputerList);
+                showScores.setText("Your scores: " + counterComputerList);
+
                 qRabbitsCom.setText("RABBITS: " + String.valueOf(Collections.frequency(computerListAfterGreeding, Animal.RABBIT)));
                 qSheepsCom.setText("SHEEP: " + String.valueOf(Collections.frequency(computerListAfterGreeding, Animal.SHEEP)));
                 qPigsCom.setText("PIGS: " + String.valueOf(Collections.frequency(computerListAfterGreeding, Animal.PIG)));
@@ -395,6 +391,8 @@ public class GameRunner extends Application {
                 qHorsesCom.setText("HORSES: " + String.valueOf(Collections.frequency(computerListAfterGreeding, Animal.HORSE)));
 
                 playAgain.setVisible(true);
+                showScores.setVisible(true);
+                showComputerScores.setVisible(true);
 
                 System.out.println("Computer WON!!!");
                 comunication.setText("Computer WON!!!");
@@ -429,6 +427,8 @@ public class GameRunner extends Application {
                 exchangeToSmallDog.setVisible(false);
                 exchangeToBigDog.setVisible(false);
                 moveCounter.setVisible(false);
+                smallDogLabel.setVisible(false);
+                bigDogLabel.setVisible(false);
             }
 
         });
@@ -572,6 +572,7 @@ public class GameRunner extends Application {
             exchangeToSmallDog.setVisible(true);
             exchangeToBigDog.setVisible(true);
             showScores.setVisible(false);
+            showComputerScores.setVisible(false);
 
             Background background1 = new Background(backgroundImage1);
             grid.setBackground(background1);
@@ -600,6 +601,7 @@ public class GameRunner extends Application {
             exchangeToSmallDog.setVisible(true);
             exchangeToBigDog.setVisible(true);
             showScores.setVisible(false);
+            showComputerScores.setVisible(false);
             computerListAfterGreeding = new ArrayList();
             Background background1 = new Background(backgroundImage1);
             grid.setBackground(background1);
@@ -646,12 +648,13 @@ public class GameRunner extends Application {
             playAgain.setVisible(false);
             level1.setVisible(true);
             showScores.setVisible(false);
+            showComputerScores.setVisible(false);
             comunication.setText("Your move");
         });
 
         setConstraints(grid);
 
-        gridAdding(grid, starGameWithOneRabbit, startGameWithNothing, throwDice, throwComputer, exchangeRabbit, exchangeSheep, exchangePigDown, exchangeSheepDown, exchangeCow, exchangeCowDown, exchangeHorse, exchangeHorseDown, exchangeToSmallDog, exchangeToBigDog, level1, playAgain, showScores);
+        gridAdding(grid, starGameWithOneRabbit, startGameWithNothing, throwDice, throwComputer, exchangeRabbit, exchangeSheep, exchangePigDown, exchangeSheepDown, exchangeCow, exchangeCowDown, exchangeHorse, exchangeHorseDown, exchangeToSmallDog, exchangeToBigDog, level1, playAgain, showScores, showComputerScores, save);
 
         Scene scene = new Scene(grid, 1600, 900, Color.YELLOW);
 
@@ -659,10 +662,9 @@ public class GameRunner extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-
     }
 
-    private void visibilitySetup(Button starGameWithOneRabbit, Button startGameWithNothing, Button throwDice, Button throwComputer, Button exchangeRabbit, Button exchangeSheep, Button exchangePigDown, Button exchangeSheepDown, Button exchangeCow, Button exchangeCowDown, Button exchangeHorse, Button exchangeHorseDown, Button exchangeToSmallDog, Button exchangeToBigDog, Button level0, Button level1, Button playAgain, Label showScores, Button save) {
+    private void visibilitySetup(Button starGameWithOneRabbit, Button startGameWithNothing, Button throwDice, Button throwComputer, Button exchangeRabbit, Button exchangeSheep, Button exchangePigDown, Button exchangeSheepDown, Button exchangeCow, Button exchangeCowDown, Button exchangeHorse, Button exchangeHorseDown, Button exchangeToSmallDog, Button exchangeToBigDog, Button level0, Button level1, Button playAgain, Label showScores, Button save, Label showComputerScores) {
         starGameWithOneRabbit.setVisible(true);
         startGameWithNothing.setVisible(true);
         level0.setVisible(true);
@@ -682,10 +684,11 @@ public class GameRunner extends Application {
         exchangeToBigDog.setVisible(false);
         playAgain.setVisible(false);
         showScores.setVisible(false);
+        showComputerScores.setVisible(false);
         save.setVisible(false);
     }
 
-    private void gridAdding(GridPane grid, Button starGameWithOneRabbit, Button startGameWithNothing, Button throwDice, Button throwComputer, Button exchangeRabbit, Button exchangeSheep, Button exchangePigDown, Button exchangeSheepDown, Button exchangeCow, Button exchangeCowDown, Button exchangeHorse, Button exchangeHorseDown, Button exchangeToSmallDog, Button exchangeToBigDog, Button level1, Button playAgain, Label showScores) {
+    private void gridAdding(GridPane grid, Button starGameWithOneRabbit, Button startGameWithNothing, Button throwDice, Button throwComputer, Button exchangeRabbit, Button exchangeSheep, Button exchangePigDown, Button exchangeSheepDown, Button exchangeCow, Button exchangeCowDown, Button exchangeHorse, Button exchangeHorseDown, Button exchangeToSmallDog, Button exchangeToBigDog, Button level1, Button playAgain, Label showScores, Label showComputerScores, Button save) {
         grid.add(throwDice, 1, 1);
         grid.add(throwComputer, 1, 2);
         grid.add(orangeDice, 3, 1);
@@ -721,6 +724,8 @@ public class GameRunner extends Application {
         grid.add(moveCounter, 1, 0, 1, 1);
         grid.add(playAgain, 4, 14);
         grid.add(showScores, 7, 6);
+        grid.add(showComputerScores, 7, 8);
+        grid.add(save,8,0);
     }
 
     private void setConstraints(GridPane grid) {
