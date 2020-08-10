@@ -21,7 +21,6 @@ public class UserAnimalList {
         }
         return false;
     }
-
     public ArrayList greedingUser(ArrayList userAnimalList, Animal orange, Animal blue, boolean smallDog, boolean bigDog) {
 
         System.out.println("User move: " + orange + " " + blue);
