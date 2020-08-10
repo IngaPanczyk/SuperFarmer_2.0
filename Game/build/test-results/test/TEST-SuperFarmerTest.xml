@@ -1,8 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="SuperFarmerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-08-02T20:28:49" hostname="DESKTOP-VUOAR0M" time="0.003">
+<testsuite name="SuperFarmerTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2020-08-10T19:50:02" hostname="DESKTOP-VUOAR0M" time="0.048">
   <properties/>
+  <testcase name="testUserRabbitWolfOrangeUser" classname="SuperFarmerTest" time="0.026"/>
+  <testcase name="smallDogTrue" classname="SuperFarmerTest" time="0.001"/>
+  <testcase name="testUserRabbitFoxUser" classname="SuperFarmerTest" time="0.001"/>
+  <testcase name="smallDogFalse" classname="SuperFarmerTest" time="0.001"/>
+  <testcase name="checkAnimalsInCollectionComputer" classname="SuperFarmerTest" time="0.004"/>
+  <testcase name="checkAnimalsInCollectionUser" classname="SuperFarmerTest" time="0.0"/>
   <testcase name="bigDogTrue" classname="SuperFarmerTest" time="0.003"/>
-  <system-out><![CDATA[User move: PIG WOLF
+  <testcase name="testRabbitWolfBlueComputer" classname="SuperFarmerTest" time="0.001"/>
+  <testcase name="bigDogFalse" classname="SuperFarmerTest" time="0.0"/>
+  <testcase name="testUserRabbitRabbitUser" classname="SuperFarmerTest" time="0.001"/>
+  <testcase name="testUserRabbitWolfBlueUser" classname="SuperFarmerTest" time="0.0"/>
+  <testcase name="greedingRabbitRabbitComputer" classname="SuperFarmerTest" time="0.0"/>
+  <system-out><![CDATA[User move: WOLF RABBIT
+User + RABBIT
+User move: PIG FOX
+User move: RABBIT FOX
+User + RABBIT
+User move: PIG FOX
+User move: PIG WOLF
+Computer move: RABBIT WOLF
+User move: PIG WOLF
+User move: RABBIT RABBIT
+User +RABBIT
+User move: RABBIT WOLF
+User + RABBIT
+Computer move: RABBIT RABBIT
+Computer +RABBIT
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

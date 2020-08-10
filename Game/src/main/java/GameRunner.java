@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -21,8 +22,8 @@ import static javafx.application.Application.launch;
 
 public class GameRunner extends Application {
 
-    ArrayList userListAfterGreeding;
-    ArrayList computerListAfterGreeding;
+    ArrayList<Animal> userListAfterGreeding;
+    ArrayList<Animal> computerListAfterGreeding;
     boolean moveControler = true;
     boolean userWinner = false;
     boolean computerWinner = false;
@@ -41,10 +42,11 @@ public class GameRunner extends Application {
     ArrayList userList = userAnimalList.getlist();
     ArrayList computerList = computerAnimalLIst.getList();
 
-    private Image imageback = new Image("file:src/main/resources/Start2.png");
-    private Image imageback1 = new Image("file:src/main/resources/Plansza1.png");
-    private Image youWon = new Image("file:src/main/resources/YouWon.png");
-    private Image computerWon = new Image("file:src/main/resources/ComputerWon.png");
+    private Image imageback = new Image("file:game/src/main/resources/Start2.png");
+    private Image imageback1 = new Image("file:game/src/main/resources/Plansza1.png");
+    private Image youWon = new Image("file:game/src/main/resources/YouWon.png");
+    private Image computerWon = new Image("file:game/src/main/resources/ComputerWon.png");
+    private Image pig = new Image("file:game/src/main/resources/Pig.png",50.0,50.0,false,false);
     private Label blueDice = new Label();
     private Label orangeDice = new Label();
     private Label blueDiceComputer = new Label();
@@ -71,11 +73,19 @@ public class GameRunner extends Application {
     }
 
     public void saveUserListAfterGreeding() {
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(savedUserList));
+        try( ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(savedUserList))) {
+           /* userListAfterGreeding.stream()
+                    .map(e-> e.name())
+                    .forEach(str ->{
+                        try {
+                            oos.writeUTF(str);
+                        }catch(IOException e){
+                            System.out.println("Error");
+                        }
+                    });*/
             oos.writeObject(userListAfterGreeding);
-            oos.close();
-        } catch (Exception e) {
+
+        } catch (IOException e) {
             System.out.println("Error");
         }
     }
@@ -111,7 +121,7 @@ public class GameRunner extends Application {
         orangeDiceComputer.setTextFill(Color.web("orange"));
         blueDiceComputer.setFont(new Font("Arial", 40));
         blueDiceComputer.setTextFill(Color.web("blue"));
-        comunication.setFont(new Font("Arial", 40));
+        comunication.setFont(new Font("Calibri", 40));
         comunication.setTextFill(Color.web("brown"));
         qRabbits.setFont(new Font("Arial", 30));
         qRabbits.setTextFill(Color.web("green"));
@@ -212,8 +222,15 @@ public class GameRunner extends Application {
         exchangeToBigDog.setText("1 COW = 1 BIG DOG");
         level1.setText("LEVEL HARD");
         playAgain.setText("PLAY AGAIN");
-        save.setText("SAVE");
+        save.setMaxWidth(100.0);
+        save.setMaxHeight(100.0);
+        pig.widthProperty();
+        save.setGraphic(new ImageView(pig));
 
+        save.setOnAction((e) -> {
+            saveUserListAfterGreeding();
+            System.out.println("Game saved");
+        });
         level1.setOnAction((e) -> {
             level = 1;
             System.out.println("Your level is hard");
@@ -262,7 +279,6 @@ public class GameRunner extends Application {
                 throwComputer.setVisible(true);
                 throwDice.setVisible(false);
                 System.out.println("level: 0" + level);
-                gameRunner.saveUserListAfterGreeding();
             }
             if (userWinner == true) {
                 counterList.add(counter);
@@ -313,10 +329,6 @@ public class GameRunner extends Application {
                 playAgain.setVisible(true);
                 bigDogLabel.setVisible(false);
             }
-        });
-        save.setOnAction((e) -> {
-            GameRunner gameRunner = new GameRunner();
-            gameRunner.saveUserListAfterGreeding();
         });
         throwComputer.setOnAction((e) -> {
             computerWinner = false;

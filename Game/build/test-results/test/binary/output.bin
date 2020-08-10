@@ -1,1 +1,16 @@
-User move: PIG WOLF
+User move: WOLF RABBIT
+User + RABBIT
+User move: PIG FOX
+User move: RABBIT FOX
+User + RABBIT
+User move: PIG FOX
+User move: PIG WOLF
+	Computer move: RABBIT WOLF
+
+User move: PIG WOLF
+User move: RABBIT RABBIT
+User +RABBIT
+User move: RABBIT WOLF
+User + RABBIT
+Computer move: RABBIT RABBIT
+Computer +RABBIT
